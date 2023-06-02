@@ -7,6 +7,7 @@ wget https://lxd.s3.eu-south-1.amazonaws.com/frr.tar.gz
 wget https://drive.google.com/uc?export=download&id=12h1fjy6M5wAHLycXDaRi_rZXD6tR5UqK
 wget https://drive.google.com/uc?export=download&id=1uBTLPXLNLcZrMhgudTlUkfBMXi1FtZ0l
 wget https://drive.google.com/uc?export=download&id=1EV8lSoZ8Hz91ytNhw5b_THxMrFXawYBk
+wget https://drive.google.com/uc?export=download&id=1rBM-ta1liYfbevTPguq-ySXTnJfv6Q68
 sudo apt install net-tools
 python3 bgp4.py TB
 lxc list
