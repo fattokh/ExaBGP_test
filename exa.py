@@ -132,7 +132,7 @@ config = {'name': container_name,
           'auto_update': False,
           'profiles': ['default', NAME] }
 cont = lxd_client.containers.create(config, wait=True)
-#cont.start(wait=True)
+cont.start(wait=True)
 print("Container FRR created")
 container_name = NAME+'-exa'
 try:
@@ -148,7 +148,7 @@ config = {'name': container_name,
           'auto_update': False,
           'profiles': ['default', NAME] }
 cont = lxd_client.containers.create(config, wait=True)
-#cont.start(wait=True)
+cont.start(wait=True)
 print("Container EXA created")
 
 ######################################################################
