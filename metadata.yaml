@@ -1,7 +1,7 @@
 architecture: "x86_64"
-creation_date: 1685666789
+creation_date: $(date +%s)
 properties:
 architecture: "x86_64"
-description: "FRR image"
+description: "EXABGP image"
 os: "ubuntu"
 release: "20.04"

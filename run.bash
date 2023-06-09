@@ -6,7 +6,6 @@ cd /home/user/scaling-eureka/tb/bgp/
 wget https://lxd.s3.eu-south-1.amazonaws.com/frr.tar.gz
 sudo apt install net-tools
 python3 bgp.py TB
-
 pip install exabgp
 sudo apt-get install debootstrap
 cd /home/user/scaling-eureka/tb/exa
