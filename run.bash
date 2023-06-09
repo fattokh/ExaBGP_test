@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd /home/user/ 
-git clone https://gitlab.dei.unipd.it/anemos/scaling-eureka.git
+git clone https://github.com/falberti/scaling-eureka.git
 cd /home/user/scaling-eureka/tb/bgp4/
 wget https://lxd.s3.eu-south-1.amazonaws.com/frr.tar.gz
 wget https://drive.google.com/uc?export=download&id=12h1fjy6M5wAHLycXDaRi_rZXD6tR5UqK
