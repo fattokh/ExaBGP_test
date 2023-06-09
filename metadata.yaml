@@ -1,5 +1,5 @@
 architecture: "x86_64"
-creation_date: $(date +%s)
+creation_date: 1685666787
 properties:
 architecture: "x86_64"
 description: "EXABGP image"
