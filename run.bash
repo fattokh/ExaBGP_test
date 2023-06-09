@@ -20,5 +20,5 @@ cp frr_metadata.tar.gz ../
 cp exa.py ../
 cd ../
 lxc list
-python3 exa.py EXA
+python3 exa.py EXA >> history.txt
 lxc list
