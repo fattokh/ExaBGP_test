@@ -2,7 +2,7 @@
 
 cd /home/user/ 
 git clone https://github.com/falberti/scaling-eureka.git
-cd /home/user/scaling-eureka/tb/bgp4/
+cd /home/user/scaling-eureka/tb/bgp/
 wget https://lxd.s3.eu-south-1.amazonaws.com/frr.tar.gz
 sudo apt install net-tools
 python3 bgp.py TB
