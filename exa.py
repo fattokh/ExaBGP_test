@@ -118,7 +118,22 @@ print("Done with creating image {}".format(NAME+"-exa"))
 ######################################################################
 # CREATE CONTAINERS
 ######################################################################
+container_name = NAME+'-frr'
+try:
+    lxd_client.containers.get(container_name)
+    print("Container {} already exists. Exiting...".format(container_name))
+    sys.exit(1)
+except pylxd.exceptions.NotFound as e:
+    pass
 
+config = {'name': container_name,
+          'source': {'type': 'image', 'alias': NAME+'-frr'},
+          'public': False,
+          'auto_update': False,
+          'profiles': ['default', NAME] }
+cont = lxd_client.containers.create(config, wait=True)
+#cont.start(wait=True)
+print("Container FRR created")
 container_name = NAME+'-exa'
 try:
     lxd_client.containers.get(container_name)
@@ -133,7 +148,7 @@ config = {'name': container_name,
           'auto_update': False,
           'profiles': ['default', NAME] }
 cont = lxd_client.containers.create(config, wait=True)
-cont.start(wait=True)
+#cont.start(wait=True)
 print("Container EXA created")
 
 ######################################################################
