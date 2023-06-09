@@ -13,6 +13,7 @@ sudo apt-get install debootstrap
 
 cd /home/user/scaling-eureka/
 ./create_image_exa.sh /home/user/exa_test
+ls
 ./create_image_exa.sh /home/user/frr_test
 cp exa_metadata.tar.gz  /home/user/scaling-eureka/tb/exa
 cp frr_metadata.tar.gz  /home/user/scaling-eureka/tb/exa
@@ -21,17 +22,17 @@ cp frr.tar.gz           /home/user/scaling-eureka/tb/exa
 
 cd /home/user/scaling-eureka/tb/exa
 #rm exa.py
-#wget https://lxd.s3.eu-south-1.amazonaws.com/frr.tar.gz
+wget https://lxd.s3.eu-south-1.amazonaws.com/frr.tar.gz
 #wget https://lxd.s3.eu-south-1.amazonaws.com/exa.tar.gz
 
 
-#git clone https://github.com/fattokh/ExaBGP_test.git
-#cd /home/user/scaling-eureka/tb/exa/ExaBGP_test
+git clone https://github.com/fattokh/ExaBGP_test.git
+cd /home/user/scaling-eureka/tb/exa/ExaBGP_test
 #tar -czvf exa_metadata.tar.gz metadata.yaml 
 #cp exa_metadata.tar.gz ../
-#cp frr_metadata.tar.gz ../
-#cp exa.py ../
-#cd ../
+cp frr_metadata.tar.gz ../
+cp exa.py ../
+cd ../
 lxc list
 python3 exa.py EXA 
 lxc list
