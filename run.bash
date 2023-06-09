@@ -13,8 +13,6 @@ sudo apt-get install debootstrap
 
 cd /home/user/scaling-eureka/
 ./create_image_exa.sh /home/user/exa_test
-ls
-./create_image_exa.sh /home/user/frr_test
 cp exa_metadata.tar.gz  /home/user/scaling-eureka/tb/exa
 cp frr_metadata.tar.gz  /home/user/scaling-eureka/tb/exa
 cp exa.tar.gz           /home/user/scaling-eureka/tb/exa
