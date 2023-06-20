@@ -3,6 +3,8 @@
 cd /home/user/ 
 
 git clone https://github.com/falberti/scaling-eureka.git
+cd
+cd /home/user/
 git clone https://gitlab.dei.unipd.it/Fattokh/exabgp_test.git
 Fattokh
 x6YTk0sGeP
