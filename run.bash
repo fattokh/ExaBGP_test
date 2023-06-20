@@ -27,7 +27,6 @@ cd /home/user/scaling-eureka/tb/exa
 
 
 cd /home/user/scaling-eureka/tb/bgp4/
-wget https://lxd.s3.eu-south-1.amazonaws.com/frr.tar.gz
 sudo apt install net-tools
 python3 bgp4.py TB
 pip install exabgp
