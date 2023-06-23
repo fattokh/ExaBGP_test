@@ -6,12 +6,11 @@ cd /home/user/ExaBGP_test
 cd /home/user/ 
 
 git clone https://github.com/falberti/scaling-eureka.git
-cd
-
 
 cd /home/user/scaling-eureka/
 ./create_image_exa.sh /home/user/exa_test
 ./create_image_frr.sh /home/user/frr_test
+cd /home/user/scaling-eureka/
 
 #rm exa.py
 cp exa_metadata.tar.gz  /home/user/scaling-eureka/tb/exa
