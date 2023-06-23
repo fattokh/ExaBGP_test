@@ -1,8 +1,8 @@
 #!/bin/bash
 cd /home/user/ExaBGP_test
-git clone https://gitlab.dei.unipd.it/Fattokh/exabgp_test.git
-Fattokh
-Fict4ia
+#git clone https://gitlab.dei.unipd.it/Fattokh/exabgp_test.git
+#Fattokh
+#Fict4ia
 cd /home/user/ 
 
 git clone https://github.com/falberti/scaling-eureka.git
@@ -10,9 +10,10 @@ cd
 
 
 cd /home/user/scaling-eureka/
+./create_image_exa.sh /home/user/exa_test
+./create_image_frr.sh /home/user/frr_test
 
 #rm exa.py
-cd /home/user/ExaBGP_test/ExaBGP_test/
 cp exa_metadata.tar.gz  /home/user/scaling-eureka/tb/exa
 cp frr_metadata.tar.gz  /home/user/scaling-eureka/tb/exa
 cp exa.tar.gz           /home/user/scaling-eureka/tb/exa
