@@ -15,8 +15,7 @@ sudo apt install net-tools
 pip install exabgp
 sudo apt-get install debootstrap
 cd /home/user/scaling-eureka/
-./create_image_exa.sh /home/user/exa_test
-./create_image_frr.sh /home/user/frr_test
+
 cd /home/user/ExaBGP_test
 #rm exa.py
 cp exa_metadata.tar.gz  /home/user/scaling-eureka/tb/exa
