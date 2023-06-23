@@ -13,18 +13,18 @@ cd /home/user/scaling-eureka/
 
 #rm exa.py
 
-cp /home/user/exabgp_test/exa_metadata.tar.gz  /home/user/scaling-eureka/tb/exa
-cp /home/user/exabgp_test/frr_metadata.tar.gz  /home/user/scaling-eureka/tb/exa
-cp /home/user/exabgp_test/exa.tar.gz           /home/user/scaling-eureka/tb/exa
-cp /home/user/exabgp_test/frr.tar.gz           /home/user/scaling-eureka/tb/exa
-cp /home/user/exabgp_test/exa_metadata.tar.gz  /home/user/scaling-eureka/tb/bgp
-cp /home/user/exabgp_test/frr_metadata.tar.gz  /home/user/scaling-eureka/tb/bgp
-cp /home/user/exabgp_test/exa.tar.gz           /home/user/scaling-eureka/tb/bgp
-cp /home/user/exabgp_test/frr.tar.gz           /home/user/scaling-eureka/tb/bgp
-cp /home/user/exabgp_test/exa_metadata.tar.gz  /home/user/scaling-eureka/tb/bgp4
-cp /home/user/exabgp_test/frr_metadata.tar.gz  /home/user/scaling-eureka/tb/bgp4
-cp /home/user/exabgp_test/exa.tar.gz           /home/user/scaling-eureka/tb/bgp4
-cp /home/user/exabgp_test/frr.tar.gz           /home/user/scaling-eureka/tb/bgp4
+cp /home/user/ExaBGP_test/ExaBGP_test/exa_metadata.tar.gz  /home/user/scaling-eureka/tb/exa
+cp /home/user/ExaBGP_test/ExaBGP_test/frr_metadata.tar.gz  /home/user/scaling-eureka/tb/exa
+cp /home/user/ExaBGP_test/ExaBGP_test/exa.tar.gz           /home/user/scaling-eureka/tb/exa
+cp /home/user/ExaBGP_test/ExaBGP_test/frr.tar.gz           /home/user/scaling-eureka/tb/exa
+cp /home/user/ExaBGP_test/ExaBGP_test/exa_metadata.tar.gz  /home/user/scaling-eureka/tb/bgp
+cp /home/user/ExaBGP_test/ExaBGP_test/frr_metadata.tar.gz  /home/user/scaling-eureka/tb/bgp
+cp /home/user/ExaBGP_test/ExaBGP_test/exa.tar.gz           /home/user/scaling-eureka/tb/bgp
+cp /home/user/ExaBGP_test/ExaBGP_test/frr.tar.gz           /home/user/scaling-eureka/tb/bgp
+cp /home/user/ExaBGP_test/ExaBGP_test/exa_metadata.tar.gz  /home/user/scaling-eureka/tb/bgp4
+cp /home/user/ExaBGP_test/ExaBGP_test/frr_metadata.tar.gz  /home/user/scaling-eureka/tb/bgp4
+cp /home/user/ExaBGP_test/ExaBGP_test/exa.tar.gz           /home/user/scaling-eureka/tb/bgp4
+cp /home/user/ExaBGP_test/ExaBGP_test/frr.tar.gz           /home/user/scaling-eureka/tb/bgp4
 cd /home/user/scaling-eureka/tb/exa
 
 
