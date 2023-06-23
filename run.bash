@@ -6,7 +6,9 @@ cd /home/user/ExaBGP_test
 cd /home/user/ 
 
 git clone https://github.com/falberti/scaling-eureka.git
-
+sudo apt install net-tools
+pip install exabgp
+sudo apt-get install debootstrap
 cd /home/user/scaling-eureka/
 ./create_image_exa.sh /home/user/exa_test
 ./create_image_frr.sh /home/user/frr_test
@@ -29,9 +31,7 @@ cd /home/user/scaling-eureka/tb/exa
 
 
 cd /home/user/scaling-eureka/tb/bgp4/
-sudo apt install net-tools
-pip install exabgp
-sudo apt-get install debootstrap
+
 lxc list
 python3 bgp4.py TB
 
