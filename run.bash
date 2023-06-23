@@ -7,7 +7,7 @@ cd
 cd /home/user/
 git clone https://gitlab.dei.unipd.it/Fattokh/exabgp_test.git
 Fattokh
-x6YTk0sGeP
+Fict4ia
 
 cd /home/user/scaling-eureka/
 
