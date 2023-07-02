@@ -209,7 +209,7 @@ except Exception as e:
 
 # Create the mapping
 for c_id in range(5):
-    for container_name in [NAME+'-frr']:
+    for container_name in [NAME+'-frr'+str(c_id)]:
         cont_ifaces = ifaces[container_name]
         for iface in cont_ifaces:
             iface_name = cont_ifaces[iface]['name']
