@@ -187,20 +187,8 @@ try:
             cont_ifaces[ifindex] = {'name': iface, 'peer_id': iflink}
         ifaces[container_name] = cont_ifaces
         ifaces_map[container_name] = {}
-
-    container_name = NAME+'-exa'
-    cont = lxd_client.containers.get(container_name)
-    cont_profiles = [lxd_client.profiles.get(p) for p in cont.profiles]
-    nics = set([k for p in cont_profiles for k in p.devices if p.devices[k]['type'] == 'nic'])
     
-    cont_ifaces = {}
-    # Read ifindex and iflink
-    for iface in nics:
-        ifindex = int(cont.execute(['cat', '/sys/class/net/'+iface+'/ifindex']).stdout.strip())
-        iflink = int(cont.execute(['cat', '/sys/class/net/'+iface+'/iflink']).stdout.strip())
-        cont_ifaces[ifindex] = {'name': iface, 'peer_id': iflink}
-    ifaces[container_name] = cont_ifaces
-    ifaces_map[container_name] = {}
+
         
 except Exception as e:
     print(e)
@@ -216,7 +204,7 @@ for c_id in range(5):
             ifaces_map[container_name][iface_name] = host_ifaces[peer_id]['name']
 
 # Connect ifaces by means of ovs flows
-addFlow(NAME, ifaces_map[NAME+'-frr-0']['eth0'], ifaces_map[NAME+'-exa']['eth0'])
+#addFlow(NAME, ifaces_map[NAME+'-frr-0']['eth0'], ifaces_map[NAME+'-exa']['eth0'])
 addFlow(NAME, ifaces_map[NAME+'-frr-0']['eth1'], ifaces_map[NAME+'-frr-1']['eth0'])
 addFlow(NAME, ifaces_map[NAME+'-frr-0']['eth2'], ifaces_map[NAME+'-frr-2']['eth0'])
 addFlow(NAME, ifaces_map[NAME+'-frr-0']['eth3'], ifaces_map[NAME+'-frr-3']['eth0'])
