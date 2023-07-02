@@ -188,19 +188,19 @@ try:
         ifaces[container_name] = cont_ifaces
         ifaces_map[container_name] = {}
 
-    for container_name = NAME+'-exa'
-        cont = lxd_client.containers.get(container_name)
-        cont_profiles = [lxd_client.profiles.get(p) for p in cont.profiles]
-        nics = set([k for p in cont_profiles for k in p.devices if p.devices[k]['type'] == 'nic'])
+    container_name = NAME+'-exa'
+    cont = lxd_client.containers.get(container_name)
+    cont_profiles = [lxd_client.profiles.get(p) for p in cont.profiles]
+    nics = set([k for p in cont_profiles for k in p.devices if p.devices[k]['type'] == 'nic'])
     
-        cont_ifaces = {}
-        # Read ifindex and iflink
-        for iface in nics:
-            ifindex = int(cont.execute(['cat', '/sys/class/net/'+iface+'/ifindex']).stdout.strip())
-            iflink = int(cont.execute(['cat', '/sys/class/net/'+iface+'/iflink']).stdout.strip())
-            cont_ifaces[ifindex] = {'name': iface, 'peer_id': iflink}
-        ifaces[container_name] = cont_ifaces
-        ifaces_map[container_name] = {}
+    cont_ifaces = {}
+    # Read ifindex and iflink
+    for iface in nics:
+        ifindex = int(cont.execute(['cat', '/sys/class/net/'+iface+'/ifindex']).stdout.strip())
+        iflink = int(cont.execute(['cat', '/sys/class/net/'+iface+'/iflink']).stdout.strip())
+        cont_ifaces[ifindex] = {'name': iface, 'peer_id': iflink}
+    ifaces[container_name] = cont_ifaces
+    ifaces_map[container_name] = {}
         
 except Exception as e:
     print(e)
