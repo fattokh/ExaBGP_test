@@ -73,10 +73,6 @@ profile = lxd_client.profiles.create(NAME,
         devices={
 	    'root': {'path': '/', 'pool': NAME, 'type': 'disk'},
             'eth0': {'name': 'eth0', 'nictype': 'bridged', 'parent': NAME, 'type': 'nic'},
-            'eth1': {'name': 'eth1', 'nictype': 'bridged', 'parent': NAME, 'type': 'nic'}, 
-            'eth2': {'name': 'eth2', 'nictype': 'bridged', 'parent': NAME, 'type': 'nic'},
-            'eth3': {'name': 'eth3', 'nictype': 'bridged', 'parent': NAME, 'type': 'nic'},
-            'eth4': {'name': 'eth4', 'nictype': 'bridged', 'parent': NAME, 'type': 'nic'},              
         })
 print("Done with creating profile {}".format(NAME))
 
@@ -91,9 +87,10 @@ except pylxd.exceptions.NotFound as e:
     pass
 with open('frr.tar.gz', 'rb') as f:
     image_data = f.read()
-
+with open('frr_metadata.tar.gz', 'rb') as f:
+    metadata = f.read()
 try:
-    image = lxd_client.images.create(image_data,  public=False, wait=True)
+    image = lxd_client.images.create(image_data, metadata=metadata, public=False, wait=True)
     image.add_alias(NAME+"-frr", "TRex image")
 except pylxd.exceptions.LXDAPIException as e:
     print(e)
@@ -108,9 +105,10 @@ except pylxd.exceptions.NotFound as e:
     pass
 with open('exa.tar.gz', 'rb') as f:
     image_data = f.read()
-
+with open('exa_metadata.tar.gz', 'rb') as f:
+    metadata = f.read()
 try:
-    image = lxd_client.images.create(image_data,  public=False, wait=True)
+    image = lxd_client.images.create(image_data, metadata=metadata, public=False, wait=True)
     image.add_alias(NAME+"-exa", "ExaBGP image")
 except pylxd.exceptions.LXDAPIException as e:
     print(e)
@@ -120,23 +118,22 @@ print("Done with creating image {}".format(NAME+"-exa"))
 ######################################################################
 # CREATE CONTAINERS
 ######################################################################
-for c_id in range(5):
-    container_name = NAME+'-frr-'+str(c_id)
-    try:
-        lxd_client.containers.get(container_name)
-        print("Container {} already exists. Exiting...".format(container_name))
-        sys.exit(1)
-    except pylxd.exceptions.NotFound as e:
-        pass
+container_name = NAME+'-frr'
+try:
+    lxd_client.containers.get(container_name)
+    print("Container {} already exists. Exiting...".format(container_name))
+    sys.exit(1)
+except pylxd.exceptions.NotFound as e:
+    pass
 
-    config = {'name': container_name,
+config = {'name': container_name,
           'source': {'type': 'image', 'alias': NAME+'-frr'},
           'public': False,
           'auto_update': False,
           'profiles': ['default', NAME] }
-    cont = lxd_client.containers.create(config, wait=True)
-    cont.start(wait=True)
-    print("Container FRR #" +str(c_id)+"created")
+cont = lxd_client.containers.create(config, wait=True)
+cont.start(wait=True)
+print("Container FRR created")
 
 container_name = NAME+'-exa'
 try:
@@ -173,12 +170,11 @@ for iface in netifaces.interfaces():
 ifaces = {}
 ifaces_map = {}
 try:
-    for c_id in range(5):    
-        container_name = NAME+'-frr-'+str(c_id)
+    for container_name in [NAME+'-frr', NAME+'-exa']:
         cont = lxd_client.containers.get(container_name)
         cont_profiles = [lxd_client.profiles.get(p) for p in cont.profiles]
         nics = set([k for p in cont_profiles for k in p.devices if p.devices[k]['type'] == 'nic'])
-    
+ 
         cont_ifaces = {}
         # Read ifindex and iflink
         for iface in nics:
@@ -188,51 +184,20 @@ try:
         ifaces[container_name] = cont_ifaces
         ifaces_map[container_name] = {}
 
-    for c_id in range(1):    
-        container_name = NAME+'-exa'
-        cont = lxd_client.containers.get(container_name)
-        cont_profiles = [lxd_client.profiles.get(p) for p in cont.profiles]
-        nics = set([k for p in cont_profiles for k in p.devices if p.devices[k]['type'] == 'nic'])
-    
-        cont_ifaces = {}
-        # Read ifindex and iflink
-        for iface in nics:
-            ifindex = int(cont.execute(['cat', '/sys/class/net/'+iface+'/ifindex']).stdout.strip())
-            iflink = int(cont.execute(['cat', '/sys/class/net/'+iface+'/iflink']).stdout.strip())
-            cont_ifaces[ifindex] = {'name': iface, 'peer_id': iflink}
-        ifaces[container_name] = cont_ifaces
-        ifaces_map[container_name] = {}
-        
 except Exception as e:
     print(e)
     sys.exit(1)
 
 # Create the mapping
-for c_id in range(5):
-    for container_name in [NAME+'-frr']:
-        cont_ifaces = ifaces[container_name]
-        for iface in cont_ifaces:
-            iface_name = cont_ifaces[iface]['name']
-            peer_id = cont_ifaces[iface]['peer_id']
-            ifaces_map[container_name][iface_name] = host_ifaces[peer_id]['name']
-for c_id in range(1):
-    for container_name in [NAME+'-exa']:
-        cont_ifaces = ifaces[container_name]
-        for iface in cont_ifaces:
-            iface_name = cont_ifaces[iface]['name']
-            peer_id = cont_ifaces[iface]['peer_id']
-            ifaces_map[container_name][iface_name] = host_ifaces[peer_id]['name']
+for container_name in [NAME+'-frr', NAME+'-exa']:
+    cont_ifaces = ifaces[container_name]
+    for iface in cont_ifaces:
+        iface_name = cont_ifaces[iface]['name']
+        peer_id = cont_ifaces[iface]['peer_id']
+        ifaces_map[container_name][iface_name] = host_ifaces[peer_id]['name']
 
 # Connect ifaces by means of ovs flows
-addFlow(NAME, ifaces_map[NAME+'-frr-0']['eth0'], ifaces_map[NAME+'-exa']['eth0'])
-addFlow(NAME, ifaces_map[NAME+'-frr-0']['eth1'], ifaces_map[NAME+'-frr-1']['eth0'])
-addFlow(NAME, ifaces_map[NAME+'-frr-0']['eth2'], ifaces_map[NAME+'-frr-2']['eth0'])
-addFlow(NAME, ifaces_map[NAME+'-frr-0']['eth3'], ifaces_map[NAME+'-frr-3']['eth0'])
-addFlow(NAME, ifaces_map[NAME+'-frr-0']['eth4'], ifaces_map[NAME+'-frr-4']['eth0'])
-addFlow(NAME, ifaces_map[NAME+'-frr-1']['eth1'], ifaces_map[NAME+'-frr-2']['eth1'])
-addFlow(NAME, ifaces_map[NAME+'-frr-1']['eth2'], ifaces_map[NAME+'-frr-3']['eth1'])
-addFlow(NAME, ifaces_map[NAME+'-frr-1']['eth3'], ifaces_map[NAME+'-frr-4']['eth1'])
-
+addFlow(NAME, ifaces_map[NAME+'-frr']['eth0'], ifaces_map[NAME+'-exa']['eth0'])
 print("Done")
 
 # Start EXABGP in background
