@@ -174,7 +174,7 @@ ifaces = {}
 ifaces_map = {}
 try:
     for c_id in range(5):    
-        container_name NAME+'-frr'+str(c_id)
+        container_name = NAME+'-frr'+str(c_id)
         cont = lxd_client.containers.get(container_name)
         cont_profiles = [lxd_client.profiles.get(p) for p in cont.profiles]
         nics = set([k for p in cont_profiles for k in p.devices if p.devices[k]['type'] == 'nic'])
