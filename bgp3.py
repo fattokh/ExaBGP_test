@@ -73,6 +73,7 @@ profile = lxd_client.profiles.create(NAME,
         devices={
 	    'root': {'path': '/', 'pool': NAME, 'type': 'disk'},
             'eth0': {'name': 'eth0', 'nictype': 'bridged', 'parent': NAME, 'type': 'nic'},
+            'eth1': {'name': 'eth1', 'nictype': 'bridged', 'parent': NAME, 'type': 'nic'}, 
         })
 print("Done with creating profile {}".format(NAME))
 
@@ -134,7 +135,7 @@ for iface in netifaces.interfaces():
 ifaces = {}
 ifaces_map = {}
 try:
-    for c_id in range(2):
+    for c_id in range(3):
         container_name = NAME+'-'+str(c_id)
         cont = lxd_client.containers.get(container_name)
         cont_profiles = [lxd_client.profiles.get(p) for p in cont.profiles]
@@ -154,7 +155,7 @@ except Exception as e:
     sys.exit(1)
 
 # Create the mapping
-for c_id in range(2):
+for c_id in range(3):
     container_name = NAME+'-'+str(c_id)
     cont_ifaces = ifaces[container_name]
     for iface in cont_ifaces:
