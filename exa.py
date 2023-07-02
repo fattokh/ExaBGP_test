@@ -124,7 +124,7 @@ for c_id in range(5):
     container_name = NAME+'-frr-'+str(c_id)
     try:
         lxd_client.containers.get(container_name)
-            print("Container {} already exists. Exiting...".format(container_name))
+        print("Container {} already exists. Exiting...".format(container_name))
         sys.exit(1)
     except pylxd.exceptions.NotFound as e:
         pass
