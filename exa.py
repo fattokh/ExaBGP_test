@@ -201,7 +201,7 @@ try:
         cont_ifaces[ifindex] = {'name': iface, 'peer_id': iflink}
     ifaces[container_name] = cont_ifaces
     ifaces_map[container_name] = {}
-    print("good")        
+        
 except Exception as e:
     print(e)
     sys.exit(1)
@@ -215,12 +215,19 @@ for c_id in range(5):
             peer_id = cont_ifaces[iface]['peer_id']
             ifaces_map[container_name][iface_name] = host_ifaces[peer_id]['name']
 for c_id in range(1):
-    for container_name in [NAME+'-exa']:# Connect ifaces by means of ovs flows
-        cont_ifaces = ifaces[container_name]addFlow(NAME, ifaces_map[NAME+'-frr-0']['eth0'], ifaces_map[NAME+'-exa']['eth0'])
-        for iface in cont_ifaces:addFlow(NAME, ifaces_map[NAME+'-frr-0']['eth1'], ifaces_map[NAME+'-frr-1']['eth0'])
-            iface_name = cont_ifaces[iface]['name']addFlow(NAME, ifaces_map[NAME+'-frr-0']['eth2'], ifaces_map[NAME+'-frr-2']['eth0'])
-            peer_id = cont_ifaces[iface]['peer_id']addFlow(NAME, ifaces_map[NAME+'-frr-0']['eth3'], ifaces_map[NAME+'-frr-3']['eth0'])
-            ifaces_map[container_name][iface_name] = host_ifaces[peer_id]['name']addFlow(NAME, ifaces_map[NAME+'-frr-0']['eth4'], ifaces_map[NAME+'-frr-4']['eth0'])
+    for container_name in [NAME+'-exa']:
+        cont_ifaces = ifaces[container_name]
+        for iface in cont_ifaces:
+            iface_name = cont_ifaces[iface]['name']
+            peer_id = cont_ifaces[iface]['peer_id']
+            ifaces_map[container_name][iface_name] = host_ifaces[peer_id]['name']
+
+# Connect ifaces by means of ovs flows
+addFlow(NAME, ifaces_map[NAME+'-frr-0']['eth0'], ifaces_map[NAME+'-exa']['eth0'])
+addFlow(NAME, ifaces_map[NAME+'-frr-0']['eth1'], ifaces_map[NAME+'-frr-1']['eth0'])
+addFlow(NAME, ifaces_map[NAME+'-frr-0']['eth2'], ifaces_map[NAME+'-frr-2']['eth0'])
+addFlow(NAME, ifaces_map[NAME+'-frr-0']['eth3'], ifaces_map[NAME+'-frr-3']['eth0'])
+addFlow(NAME, ifaces_map[NAME+'-frr-0']['eth4'], ifaces_map[NAME+'-frr-4']['eth0'])
 addFlow(NAME, ifaces_map[NAME+'-frr-1']['eth1'], ifaces_map[NAME+'-frr-2']['eth1'])
 addFlow(NAME, ifaces_map[NAME+'-frr-1']['eth2'], ifaces_map[NAME+'-frr-3']['eth1'])
 addFlow(NAME, ifaces_map[NAME+'-frr-1']['eth3'], ifaces_map[NAME+'-frr-4']['eth1'])
