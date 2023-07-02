@@ -73,7 +73,6 @@ profile = lxd_client.profiles.create(NAME,
         devices={
 	    'root': {'path': '/', 'pool': NAME, 'type': 'disk'},
             'eth0': {'name': 'eth0', 'nictype': 'bridged', 'parent': NAME, 'type': 'nic'},
-            'eth1': {'name': 'eth1', 'nictype': 'bridged', 'parent': NAME, 'type': 'nic'},
         })
 print("Done with creating profile {}".format(NAME))
 
@@ -90,7 +89,7 @@ with open('frr.tar.gz', 'rb') as f:
     image_data = f.read()
 try:
     image = lxd_client.images.create(image_data, public=False, wait=True)
-    image.add_alias(NAME, "TRex image")
+    image.add_alias(NAME, "FRR image")
 except pylxd.exceptions.LXDAPIException as e:
     print(e)
     sys.exit(1)
@@ -99,7 +98,7 @@ print("Done with creating image {}".format(NAME))
 ######################################################################
 # CREATE CONTAINERS
 ######################################################################
-for c_id in range(4):
+for c_id in range(2):
     container_name = NAME+'-'+str(c_id)
     try:
         lxd_client.containers.get(container_name)
@@ -135,7 +134,7 @@ for iface in netifaces.interfaces():
 ifaces = {}
 ifaces_map = {}
 try:
-    for c_id in range(4):
+    for c_id in range(2):
         container_name = NAME+'-'+str(c_id)
         cont = lxd_client.containers.get(container_name)
         cont_profiles = [lxd_client.profiles.get(p) for p in cont.profiles]
@@ -155,7 +154,7 @@ except Exception as e:
     sys.exit(1)
 
 # Create the mapping
-for c_id in range(4):
+for c_id in range(2):
     container_name = NAME+'-'+str(c_id)
     cont_ifaces = ifaces[container_name]
     for iface in cont_ifaces:
@@ -165,9 +164,6 @@ for c_id in range(4):
 
 # Connect ifaces by means of ovs flows
 addFlow(NAME, ifaces_map[NAME+'-0']['eth0'], ifaces_map[NAME+'-1']['eth0'])
-addFlow(NAME, ifaces_map[NAME+'-0']['eth1'], ifaces_map[NAME+'-2']['eth0'])
-addFlow(NAME, ifaces_map[NAME+'-1']['eth1'], ifaces_map[NAME+'-3']['eth0'])
-addFlow(NAME, ifaces_map[NAME+'-2']['eth1'], ifaces_map[NAME+'-3']['eth1'])
 print("Done")
 
 print("==========================================================")

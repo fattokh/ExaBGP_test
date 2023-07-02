@@ -1,7 +1,0 @@
-architecture: "x86_64"
-creation_date: 1685666789
-properties:
-architecture: "x86_64"
-description: "EXABGP image"
-os: "ubuntu"
-release: "20.04"

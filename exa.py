@@ -134,6 +134,7 @@ config = {'name': container_name,
 cont = lxd_client.containers.create(config, wait=True)
 cont.start(wait=True)
 print("Container FRR created")
+
 container_name = NAME+'-exa'
 try:
     lxd_client.containers.get(container_name)
