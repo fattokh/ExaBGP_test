@@ -202,14 +202,14 @@ for c_id in range(5):
             ifaces_map[container_name][iface_name] = host_ifaces[peer_id]['name']
 
 # Connect ifaces by means of ovs flows
-addFlow(NAME, ifaces_map[NAME+'-frr-1']['eth0'], ifaces_map[NAME+'-exa']['eth0'])
-addFlow(NAME, ifaces_map[NAME+'-frr-1']['eth1'], ifaces_map[NAME+'-frr-2']['eth0'])
-addFlow(NAME, ifaces_map[NAME+'-frr-1']['eth2'], ifaces_map[NAME+'-frr-3']['eth0'])
-addFlow(NAME, ifaces_map[NAME+'-frr-1']['eth3'], ifaces_map[NAME+'-frr-4']['eth0'])
-addFlow(NAME, ifaces_map[NAME+'-frr-1']['eth4'], ifaces_map[NAME+'-frr-5']['eth0'])
-addFlow(NAME, ifaces_map[NAME+'-frr-2']['eth1'], ifaces_map[NAME+'-frr-3']['eth1'])
-addFlow(NAME, ifaces_map[NAME+'-frr-2']['eth2'], ifaces_map[NAME+'-frr-4']['eth1'])
-addFlow(NAME, ifaces_map[NAME+'-frr-2']['eth3'], ifaces_map[NAME+'-frr-5']['eth1'])
+addFlow(NAME, ifaces_map[NAME+'-frr-0']['eth0'], ifaces_map[NAME+'-exa']['eth0'])
+addFlow(NAME, ifaces_map[NAME+'-frr-0']['eth1'], ifaces_map[NAME+'-frr-1']['eth0'])
+addFlow(NAME, ifaces_map[NAME+'-frr-0']['eth2'], ifaces_map[NAME+'-frr-2']['eth0'])
+addFlow(NAME, ifaces_map[NAME+'-frr-0']['eth3'], ifaces_map[NAME+'-frr-3']['eth0'])
+addFlow(NAME, ifaces_map[NAME+'-frr-0']['eth4'], ifaces_map[NAME+'-frr-4']['eth0'])
+addFlow(NAME, ifaces_map[NAME+'-frr-1']['eth1'], ifaces_map[NAME+'-frr-2']['eth1'])
+addFlow(NAME, ifaces_map[NAME+'-frr-1']['eth2'], ifaces_map[NAME+'-frr-3']['eth1'])
+addFlow(NAME, ifaces_map[NAME+'-frr-1']['eth3'], ifaces_map[NAME+'-frr-4']['eth1'])
 
 print("Done")
 
