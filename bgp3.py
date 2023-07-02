@@ -165,6 +165,10 @@ for c_id in range(3):
 
 # Connect ifaces by means of ovs flows
 addFlow(NAME, ifaces_map[NAME+'-0']['eth0'], ifaces_map[NAME+'-1']['eth0'])
+addFlow(NAME, ifaces_map[NAME+'-1']['eth1'], ifaces_map[NAME+'-2']['eth0'])
+
+	
+
 print("Done")
 
 print("==========================================================")
