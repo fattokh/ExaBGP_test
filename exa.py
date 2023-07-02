@@ -188,7 +188,7 @@ try:
         ifaces[container_name] = cont_ifaces
         ifaces_map[container_name] = {}
 
-    for container_name = NAME+'-exa':
+    for container_name = NAME+'-exa'
         cont = lxd_client.containers.get(container_name)
         cont_profiles = [lxd_client.profiles.get(p) for p in cont.profiles]
         nics = set([k for p in cont_profiles for k in p.devices if p.devices[k]['type'] == 'nic'])
