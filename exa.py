@@ -73,6 +73,7 @@ profile = lxd_client.profiles.create(NAME,
         devices={
 	    'root': {'path': '/', 'pool': NAME, 'type': 'disk'},
             'eth0': {'name': 'eth0', 'nictype': 'bridged', 'parent': NAME, 'type': 'nic'},
+             'eth1': {'name': 'eth1', 'nictype': 'bridged', 'parent': NAME, 'type': 'nic'}, 
         })
 print("Done with creating profile {}".format(NAME))
 
@@ -87,10 +88,9 @@ except pylxd.exceptions.NotFound as e:
     pass
 with open('frr.tar.gz', 'rb') as f:
     image_data = f.read()
-with open('frr_metadata.tar.gz', 'rb') as f:
-    metadata = f.read()
+
 try:
-    image = lxd_client.images.create(image_data, metadata=metadata, public=False, wait=True)
+    image = lxd_client.images.create(image_data,  public=False, wait=True)
     image.add_alias(NAME+"-frr", "TRex image")
 except pylxd.exceptions.LXDAPIException as e:
     print(e)
@@ -105,10 +105,9 @@ except pylxd.exceptions.NotFound as e:
     pass
 with open('exa.tar.gz', 'rb') as f:
     image_data = f.read()
-with open('exa_metadata.tar.gz', 'rb') as f:
-    metadata = f.read()
+
 try:
-    image = lxd_client.images.create(image_data, metadata=metadata, public=False, wait=True)
+    image = lxd_client.images.create(image_data,  public=False, wait=True)
     image.add_alias(NAME+"-exa", "ExaBGP image")
 except pylxd.exceptions.LXDAPIException as e:
     print(e)
