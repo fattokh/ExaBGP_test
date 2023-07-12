@@ -226,8 +226,12 @@ for c_id in range(1):
 # Connect ifaces by means of ovs flows
 addFlow(NAME, ifaces_map[NAME+'-frr-0']['eth0'], ifaces_map[NAME+'-exa']['eth0'])
 addFlow(NAME, ifaces_map[NAME+'-frr-0']['eth1'], ifaces_map[NAME+'-frr-1']['eth0'])
-
-
+addFlow(NAME, ifaces_map[NAME+'-frr-0']['eth2'], ifaces_map[NAME+'-frr-2']['eth0'])
+addFlow(NAME, ifaces_map[NAME+'-frr-0']['eth3'], ifaces_map[NAME+'-frr-3']['eth0'])
+addFlow(NAME, ifaces_map[NAME+'-frr-0']['eth4'], ifaces_map[NAME+'-frr-4']['eth0'])
+addFlow(NAME, ifaces_map[NAME+'-frr-1']['eth1'], ifaces_map[NAME+'-frr-2']['eth1'])
+addFlow(NAME, ifaces_map[NAME+'-frr-1']['eth2'], ifaces_map[NAME+'-frr-3']['eth1'])
+addFlow(NAME, ifaces_map[NAME+'-frr-1']['eth3'], ifaces_map[NAME+'-frr-4']['eth1'])
 
 print("Done")
 
