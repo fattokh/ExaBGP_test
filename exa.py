@@ -120,7 +120,7 @@ print("Done with creating image {}".format(NAME+"-exa"))
 ######################################################################
 # CREATE CONTAINERS
 ######################################################################
-for c_id in range(5):
+for c_id in range(2):
     container_name = NAME+'-frr-'+str(c_id)
     try:
         lxd_client.containers.get(container_name)
@@ -173,7 +173,7 @@ for iface in netifaces.interfaces():
 ifaces = {}
 ifaces_map = {}
 try:
-    for c_id in range(5):    
+    for c_id in range(2):    
         container_name = NAME+'-frr-'+str(c_id)
         cont = lxd_client.containers.get(container_name)
         cont_profiles = [lxd_client.profiles.get(p) for p in cont.profiles]
@@ -208,7 +208,7 @@ except Exception as e:
     sys.exit(1)
 
 # Create the mapping
-for c_id in range(5):
+for c_id in range(2):
     for container_name in [NAME+'-frr-'+str(c_id)]:
         cont_ifaces = ifaces[container_name]
         for iface in cont_ifaces:
